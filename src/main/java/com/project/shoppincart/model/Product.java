@@ -13,7 +13,8 @@ public class Product {
     private String description;
     private int amount;
     private String image;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     public Product() {
