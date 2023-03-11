@@ -1,5 +1,7 @@
 package com.project.shoppincart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -16,10 +18,13 @@ public class User {
     private String address;
     private String phone;
     private String password;
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Product> products;
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
