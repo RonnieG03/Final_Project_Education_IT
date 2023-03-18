@@ -27,7 +27,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.save(product));
     }
 
-    @GetMapping("/list")
+    @GetMapping()
     public ResponseEntity<List<Product>> list(){
         LOGGER.info("Get product list");
         return ResponseEntity.ok(productService.findAll());

@@ -18,19 +18,19 @@ public class Product {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = true)
-    private User user;
+    private UserEntity userEntity;
 
     public Product() {
     }
 
-    public Product(Integer id, String name, Double price, String description, int amount, String image, User user) {
+    public Product(Integer id, String name, Double price, String description, int amount, String image, UserEntity userEntity) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.amount = amount;
         this.image = image;
-        this.user = user;
+        this.userEntity = userEntity;
     }
 
     public Integer getId() {
@@ -81,12 +81,12 @@ public class Product {
         this.image = image;
     }
 
-    public User getUser() {
-        return user;
+    public UserEntity getUser() {
+        return userEntity;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     @Override
