@@ -1,5 +1,6 @@
 package com.project.shoppincart.security;
 
+import com.project.shoppincart.enums.RoleUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/products/**" ).hasAnyAuthority(RoleUser.ROLE_ADMIN.name())
+                .antMatchers("/api/v1/products/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -4,8 +4,8 @@ import com.project.shoppincart.dto.AuthResponseDto;
 import com.project.shoppincart.dto.LoginDto;
 import com.project.shoppincart.dto.RegisterDto;
 import com.project.shoppincart.model.UserEntity;
-import com.project.shoppincart.repository.UserRepository;
 import com.project.shoppincart.security.JWTGenerator;
+import com.project.shoppincart.service.Impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,14 +28,14 @@ import static com.project.shoppincart.enums.RoleUser.ROLE_USER;
 public class AuthController {
     private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private AuthenticationManager authenticationManager;
-    private UserRepository userRepository;
+    private UserServiceImpl userService;
     private PasswordEncoder passwordEncoder;
     private JWTGenerator jwtGenerator;
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
+    public AuthController(AuthenticationManager authenticationManager, UserServiceImpl userService,
                           PasswordEncoder passwordEncoder, JWTGenerator jwtGenerator) {
         this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtGenerator = jwtGenerator;
     }
@@ -53,7 +52,7 @@ public class AuthController {
     @PostMapping("register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
         LOGGER.info("New user registration");
-        if (userRepository.existsByUsername(registerDto.getUsername())){
+        if (userService.existsByUsername(registerDto.getUsername())){
            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
         }
         UserEntity user = new UserEntity();
@@ -62,7 +61,7 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setRoles(ROLE_USER);
 
-        userRepository.save(user);
+        userService.save(user);
 
         return ResponseEntity.ok("User registered success");
     }

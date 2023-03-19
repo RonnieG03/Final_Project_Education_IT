@@ -1,7 +1,5 @@
 package com.project.shoppincart.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,22 +13,20 @@ public class Product {
     private String description;
     private int amount;
     private String image;
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = true)
-    private UserEntity userEntity;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id", nullable = true)
+//    private UserEntity userEntity;
 
     public Product() {
     }
 
-    public Product(Integer id, String name, Double price, String description, int amount, String image, UserEntity userEntity) {
+    public Product(Integer id, String name, Double price, String description, int amount, String image) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.amount = amount;
         this.image = image;
-        this.userEntity = userEntity;
     }
 
     public Integer getId() {
@@ -79,14 +75,6 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public UserEntity getUser() {
-        return userEntity;
-    }
-
-    public void setUser(UserEntity userEntity) {
-        this.userEntity = userEntity;
     }
 
     @Override

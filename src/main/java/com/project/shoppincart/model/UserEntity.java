@@ -20,9 +20,8 @@ public class UserEntity {
     private String password;
     @Enumerated(EnumType.STRING)
     private RoleUser roles;
-    @JsonIgnore
-    @OneToMany(mappedBy = "userEntity")
-    private List<Product> products;
+//    @OneToMany(mappedBy = "userEntity")
+//    private List<Product> products;
     @JsonIgnore
     @OneToMany(mappedBy = "userEntity")
     private List<Order> orders;
@@ -96,14 +95,6 @@ public class UserEntity {
         this.password = password;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public RoleUser getRoles() {
         return roles;
     }
@@ -131,7 +122,6 @@ public class UserEntity {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
-                ", products=" + products +
                 ", orders=" + orders +
                 '}';
     }

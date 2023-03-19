@@ -12,7 +12,6 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
-
     @Override
     public Optional<UserEntity> findById(Long id) {
         return userRepository.findById(id);
@@ -21,4 +20,10 @@ public class UserServiceImpl implements UserService {
     public UserEntity save(UserEntity userEntity) {
         return userRepository.save(userEntity);
     }
+
+    public Boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+
 }
