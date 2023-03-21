@@ -15,20 +15,20 @@ public class Order {
     private Date deliveryDate;
     private double total;
     @ManyToOne
-    private User user;
+    private UserEntity userEntity;
     @OneToOne(mappedBy = "order" )
     private OrderDetail orderDetail;
 
     public Order() {
     }
 
-    public Order(Long id, String number, Date creationDate, Date deliveryDate, double total, User user) {
+    public Order(Long id, String number, Date creationDate, Date deliveryDate, double total, UserEntity userEntity) {
         this.id = id;
         this.number = number;
         this.creationDate = creationDate;
         this.deliveryDate = deliveryDate;
         this.total = total;
-        this.user = user;
+        this.userEntity = userEntity;
     }
 
     public Long getId() {
@@ -71,12 +71,12 @@ public class Order {
         this.total = total;
     }
 
-    public User getUser() {
-        return user;
+    public UserEntity getUser() {
+        return userEntity;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public OrderDetail getOrderDetail() {
