@@ -11,4 +11,5 @@ public interface ProductService {
     Product update (Product product);
     void delete(Integer id);
     List<Product> findAll();
+    List<Product> saveList(List<Product> products);
 }

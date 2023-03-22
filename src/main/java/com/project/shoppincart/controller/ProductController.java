@@ -70,4 +70,11 @@ public class ProductController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
+
+    @PostMapping("save/list")
+    public ResponseEntity<List<Product>> saveList(@RequestBody List<Product> products){
+        LOGGER.info("Create new product List{}",products);
+        return ResponseEntity.ok(productService.saveList(products));
+
+    }
 }
