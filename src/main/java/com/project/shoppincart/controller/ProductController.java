@@ -26,7 +26,6 @@ public class ProductController {
         LOGGER.info("Create new product{}",product);
         return ResponseEntity.ok(productService.save(product));
     }
-
     @GetMapping()
     public ResponseEntity<List<Product>> list(){
         LOGGER.info("Get product list");
@@ -34,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Integer id) {
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         LOGGER.info("get product by id{}", id);
         Optional<Product> productOptional = productService.getProductById(id);
         return productOptional
@@ -43,7 +42,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable Integer id) {
+    public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable Long id) {
         LOGGER.info("Update product{}",product);
         Optional<Product> productOptional = productService.getProductById(id);
         return productOptional
@@ -59,7 +58,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> delete(@PathVariable Integer id){
+    public ResponseEntity<Product> delete(@PathVariable Long id){
         LOGGER.info("Delete product{}",id);
         Optional<Product> productOptional = productService.getProductById(id);
         return productOptional
