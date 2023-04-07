@@ -1,29 +1,29 @@
 package com.project.shoppincart.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "shopping_cart")
+@Table(name = "cart")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Product product;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-    private int amount;
-    private int items;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> items = new ArrayList<>();
 
     public Cart() {
     }
 
-    public Cart(Long id, Product product, UserEntity user, int amount, int items) {
+    public Cart(Long id, UserEntity user, List<CartItem> items) {
         this.id = id;
-        this.product = product;
         this.user = user;
-        this.amount = amount;
         this.items = items;
     }
 
@@ -35,35 +35,19 @@ public class Cart {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public UserEntity getUserEntity() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.user = userEntity;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public int getItems() {
+    public List<CartItem> getItems() {
         return items;
     }
 
-    public void setItems(int items) {
+    public void setItems(List<CartItem> items) {
         this.items = items;
     }
 
@@ -71,9 +55,7 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "id=" + id +
-                ", product=" + product +
-                ", userEntity=" + user +
-                ", amount=" + amount +
+                ", user=" + user +
                 ", items=" + items +
                 '}';
     }
